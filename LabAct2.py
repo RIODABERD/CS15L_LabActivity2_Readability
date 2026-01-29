@@ -4,9 +4,11 @@ def main():
     try:
         text = input("Text: ")
 
-        letters = countinger.count_letters(text)
-        words = countinger.count_words(text)
-        sentences = countinger.count_sentences(text)
+        counter = countinger(text)
+
+        letters = counter.count_letters()
+        words = counter.count_words()
+        sentences = counter.count_sentences()
     except Exception as e:
         print(f"An error has occurred ", e)
 
@@ -25,18 +27,21 @@ def main():
         print(f"Grade {grade}")
 
 class countinger(): # One class with user-defined attributes
-    def count_letters(text):
+    def __init__(self, text):
+        self.text = text
+
+    def count_letters(self):
         count = 0
-        for char in text:
+        for char in self.text:
             if char.isalpha():
                 count += 1
         return count
 
 
-    def count_words(text):
+    def count_words(self):
         count = 0
         word = False
-        for char in text:
+        for char in self.text:
             if char.isalnum():
                 word = True
             if char.isspace() and word == True:
@@ -47,9 +52,9 @@ class countinger(): # One class with user-defined attributes
         return count
 
 
-    def count_sentences(text):
+    def count_sentences(self):
         count = 0
-        for char in text:
+        for char in self.text:
             if char in [".", "?", "!"]:
                 count += 1
         return count
